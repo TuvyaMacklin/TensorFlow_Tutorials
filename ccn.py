@@ -29,23 +29,35 @@ class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer',
 #     plt.xlabel(class_names[train_labels[i][0]])
 # plt.show()
 
+# Data Augmentation
+data_augmentation = tf.keras.Sequential([
+    layers.RandomFlip("horizontal", input_shape = (32, 32, 3)),
+    layers.RandomRotation(0.1),
+    layers.RandomZoom(0.1)
+])
+
 # Add the convolution layers
 model = models.Sequential()
+model.add(data_augmentation)
 model.add(layers.Conv2D(32, (3,3), activation = "relu", input_shape = (32, 32, 3)))
-model.add(layers.MaxPooling2D((2, 2)))
+#model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(64, (3,3), activation = "relu"))
 model.add(layers.Conv2D(64, (3,3), activation = "relu"))
 model.add(layers.MaxPooling2D((2, 2)))
 model.add(layers.Conv2D(64, (3,3), activation = "relu"))
+
+# Add dropout layer
+model.add(layers.Dropout(0.2))
 
 # Add the dense layers to get an output
 model.add(layers.Flatten())
 model.add(layers.Dense(64, activation = "relu"))
 model.add(layers.Dense(10))
 
-model.compile(optimizer = "adam",
+model.compile(optimizer = tf.keras.optimizers.Adam(learning_rate = 0.0005),
               loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits = True),
               metrics = ["accuracy"])
 
-history = model.fit(train_images, train_labels, epochs = 3, validation_split = 0.1)
+history = model.fit(train_images, train_labels, epochs = 100, validation_split = 0.1)
 
-plot_utils.plot_accuracy(history)
+plot_utils.plot_history(history, aspects = ["accuracy", "loss"], to_file = True)

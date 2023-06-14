@@ -94,11 +94,11 @@ model.compile(optimizer = "adam",
 model.summary()
 
 # Train the model
-epochs = 15
+epochs = 30
 history = model.fit(
     train_ds,
     validation_data = val_ds,
     epochs = epochs
 )
 
-plot_utils.plot_history(history, aspects = ["accuracy","loss"])
+plot_utils.plot_history(history, aspects = ["accuracy","loss"], to_file = True)

@@ -10,7 +10,7 @@ Functions:
 '''
 import matplotlib.pyplot as plt
 
-def plot_accuracy(history):
+def plot_accuracy(history, to_file = False):
     '''
     Creates a plot of the accuracy of a model with respect to the epochs.
     Plots the test accuracy and the validation accuracy.

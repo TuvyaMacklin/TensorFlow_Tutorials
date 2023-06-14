@@ -25,7 +25,11 @@ def plot_accuracy(history):
     plt.ylabel("Accuracy")
 
     plt.legend(loc = "lower right")
-    plt.show()
+    
+    if to_file:
+        plt.savefig("images.png")
+    else:
+        plt.show()
 
 def plot_history(history, aspects = ["accuracy"], height = 7, length = 7, to_file = False):
     plt.figure(figsize = (height, length))
@@ -45,7 +49,10 @@ def plot_history(history, aspects = ["accuracy"], height = 7, length = 7, to_fil
         else:
             plt.legend(loc = "lower right")
     
-    plt.show()
+    if to_file:
+        plt.savefig("images.png")
+    else:
+        plt.show()
 
 
 def plot_images(rows, cols, images, labels = None, height = 7, length = 7, to_file = False):

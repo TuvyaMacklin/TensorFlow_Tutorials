@@ -58,6 +58,13 @@ model.compile(optimizer = tf.keras.optimizers.Adam(learning_rate = 0.0005),
               loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits = True),
               metrics = ["accuracy"])
 
-history = model.fit(train_images, train_labels, epochs = 100, validation_split = 0.1)
+history = model.fit(train_images, train_labels, epochs = 50, validation_split = 0.1)
 
 plot_utils.plot_history(history, aspects = ["accuracy", "loss"], to_file = True)
+
+# Convert model to a TF Lite model
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+tflite_model = converter.convert()
+
+with open("model.tflite", "wb") as f:
+    f.write(tflite_model)

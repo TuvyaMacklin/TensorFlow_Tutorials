@@ -12,8 +12,6 @@ ds_train, info = tfds.load("coco", split = "train", shuffle_files = True, with_i
 ds_val, info = tfds.load("coco", split = "validation", shuffle_files = True, with_info= True)
 ds_test, info = tfds.load("coco", split = "test", shuffle_files = True, with_info= True)
 
-one_example = ds_train.take(1)
-
 labels = info.features["objects"]["label"].names
 
 subset_names = ["bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe"]
@@ -110,12 +108,14 @@ def crop_and_save(example, split_directory):
     height = img.height
     width = img.width
 
+    bounds[0], bounds[1] = bounds[1], bounds[0]
+    bounds[2], bounds[3] = bounds[3], bounds[2]
+
     bounds[0] *= width
     bounds[1] *= height
     bounds[2] *= width
-    bounds[2] += bounds[0]
     bounds[3] *= height
-    bounds[3] += bounds[1]
+
 
     img = img.crop(bounds)
 
@@ -142,6 +142,6 @@ def create_directories(split_name):
     
     return ROOT_DIR + split_name
 
-#preprocess_data(ds_train, "train")
-#preprocess_data(ds_val, "validation")
+preprocess_data(ds_train, "train")
+preprocess_data(ds_val, "validation")
 preprocess_data(ds_test, "test")

@@ -8,9 +8,14 @@ Date: 2023-06-13
 Functions:
     plot_accuracy(history) - Creates a plot of the accuracy of a model with respect to the epochs.
 '''
+from math import ceil, sqrt
 import matplotlib.pyplot as plt
 
-def plot_accuracy(history, to_file = False):
+import os
+
+root_dir = "plots/"
+
+def plot_accuracy(history, to_file = False, file_name = "accuracy.png"):
     '''
     Creates a plot of the accuracy of a model with respect to the epochs.
     Plots the test accuracy and the validation accuracy.
@@ -27,11 +32,11 @@ def plot_accuracy(history, to_file = False):
     plt.legend(loc = "lower right")
     
     if to_file:
-        plt.savefig("plots/plot.png")
+        plt.savefig(os.path.join(root_dir, file_name))
     else:
         plt.show()
 
-def plot_history(history, aspects = ["accuracy"], height = 7, length = 7, to_file = False):
+def plot_history(history, aspects = ["accuracy"], height = 7, length = 7, to_file = False, file_name = "history.png"):
     plt.figure(figsize = (height, length))
 
     for count, aspect in enumerate(aspects):
@@ -50,12 +55,12 @@ def plot_history(history, aspects = ["accuracy"], height = 7, length = 7, to_fil
             plt.legend(loc = "lower right")
     
     if to_file:
-        plt.savefig("plots/plot.png")
+        plt.savefig(os.path.join(root_dir, file_name))
     else:
         plt.show()
 
 
-def plot_images(rows, cols, images, labels = None, height = 7, length = 7, to_file = False):
+def plot_images(rows, cols, images, labels = None, height = 7, length = 7, to_file = False, file_name = "images.png"):
     '''
     Plots a grid of images.
 
@@ -89,6 +94,41 @@ def plot_images(rows, cols, images, labels = None, height = 7, length = 7, to_fi
         plt.axis("off")
     
     if to_file:
-        plt.savefig("plots/plot.png")
+        plt.savefig(os.path.join(root_dir, file_name))
+    else:
+        plt.show()
+
+def plot_examples_from_dataset(dataset, num_of_examples, to_file = False, file_name = "examples.png"):
+    '''
+    Plots examples from a dataset.
+
+    Parameters:
+        dataset - The dataset to plot examples from.
+        num_of_examples - The number of examples to plot.
+    
+    Returns:
+        None
+
+    Side Effects:
+        Plots the examples from the dataset.
+    '''
+
+    cols = int(sqrt(num_of_examples))
+    rows = ceil(num_of_examples / cols)
+
+    class_names = dataset.class_names
+
+    plt.figure(figsize = (10, 10))
+    for images, labels in dataset.take(1):
+        for i in range(num_of_examples):
+            if i >= len(images):
+                break
+            plt.subplot(rows, cols, i + 1)
+            plt.imshow(images[i].numpy().astype("uint8"))
+            plt.title(class_names[labels[i]])
+            plt.axis("off")
+    
+    if to_file:
+        plt.savefig(os.path.join(root_dir, file_name))
     else:
         plt.show()

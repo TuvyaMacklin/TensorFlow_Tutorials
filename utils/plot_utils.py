@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 
 import os
 
-root_dir = "plots/"
+root_dir = "/home/ec2-user/Documents/Repos/TensorFlow_Tutorials/plots"
 
 def plot_accuracy(history, to_file = False, file_name = "accuracy.png"):
     '''

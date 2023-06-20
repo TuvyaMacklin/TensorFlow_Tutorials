@@ -3,7 +3,7 @@ import tensorflow as tf
 from tensorflow.keras import datasets, layers, models
 import matplotlib.pyplot as plt
 
-import plot_utils
+import utils.plot_utils as plot_utils
 
 print(tf.__version__)
 

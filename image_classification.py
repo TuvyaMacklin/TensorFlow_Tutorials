@@ -9,7 +9,7 @@ from keras.models import Sequential
 
 import pathlib
 
-import plot_utils
+import utils.plot_utils as plot_utils
 
 dataset_url = "https://storage.googleapis.com/download.tensorflow.org/example_images/flower_photos.tgz"
 data_dir = tf.keras.utils.get_file('flower_photos', origin = dataset_url, untar = True)

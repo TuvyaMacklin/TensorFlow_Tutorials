@@ -1,4 +1,4 @@
-import os
+import os, datetime
 
 root_model_dir = "/home/ec2-user/Documents/Repos/TensorFlow_Tutorials/models"
 

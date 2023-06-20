@@ -108,15 +108,18 @@ def crop_and_save(example, split_directory):
     height = img.height
     width = img.width
 
+    # Tensorflow stores the bounds as [y0, x0, y1, x1]
+    # PIL expects the bounds to be [x0, y0, x1, y1]
     bounds[0], bounds[1] = bounds[1], bounds[0]
     bounds[2], bounds[3] = bounds[3], bounds[2]
 
+    # Convert the bounds from a fraction of the image size to a pixel value
     bounds[0] *= width
     bounds[1] *= height
     bounds[2] *= width
     bounds[3] *= height
 
-
+    # Crop the image
     img = img.crop(bounds)
 
     # Save the image to the class directory within the split directory

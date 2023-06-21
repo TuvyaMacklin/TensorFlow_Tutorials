@@ -4,7 +4,7 @@ from tensorflow import keras
 from keras import layers
 
 from utils import plot_utils as putils
-from utils import model_data_utils as mutils
+from utils import data_utils as mutils
 
 data_dir = "/home/ec2-user/Documents/datasets/coco"
 model_name = "coco_single_classification"

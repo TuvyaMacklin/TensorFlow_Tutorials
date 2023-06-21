@@ -1,6 +1,9 @@
 import os, datetime
 
+import tensorflow as tf
+
 root_model_dir = "/home/ec2-user/Documents/Repos/TensorFlow_Tutorials/models"
+root_tensorboard_dir = ".tensorboard"
 
 def save_model(model, model_name, root_model_dir = root_model_dir):
     # Ensure that a directory exists for the model
@@ -33,3 +36,8 @@ def log_results(history, hps, model_name, root_model_dir = root_model_dir):
 def ensure_directory_exists(path):
     if not os.path.exists(path):
         os.mkdir(path)
+
+def get_tensorboard_callback(model_name: str):
+    log_dir = os.path.join(root_tensorboard_dir, "fit", model_name, datetime.datetime.now().strftime("%Y.%m.%d-%H:%M:%S"))
+    tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
+    return tensorboard_callback

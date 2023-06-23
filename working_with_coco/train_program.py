@@ -4,7 +4,7 @@ from tensorflow import keras
 from keras import layers
 
 from utils import plot_utils as putils
-from utils import data_utils as mutils
+from utils import data_utils as dutils
 
 data_dir = "/home/ec2-user/Documents/datasets/coco"
 model_name = "coco_single_classification"
@@ -101,7 +101,7 @@ model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=hp["learning_rate
               metrics = ["accuracy"])
 
 # Set up TensorBoard
-tensorboard_callback = mutils.get_tensorboard_callback(model_name)
+tensorboard_callback = dutils.get_tensorboard_callback(model_name)
 
 # Train the model
 history = model.fit(
@@ -118,5 +118,5 @@ model.evaluate(test_ds)
 putils.plot_history(history, to_file=True)
 
 # Save the model and log the results
-mutils.save_model(model, model_name)
-mutils.log_results(history, hp, model_name)
+dutils.save_model(model, model_name)
+dutils.log_results(history, hp, model_name)

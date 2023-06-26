@@ -14,8 +14,8 @@ ds_test, info = tfds.load("coco", split = "test", shuffle_files = True, with_inf
 
 labels = info.features["objects"]["label"].names
 
-subset_names = ["bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe"]
-subset_ids = [14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+subset_names = ['baseball bat', 'baseball glove', 'frisbee', 'kite', 'skateboard', 'skis', 'snowboard', 'sports ball', 'surfboard', 'tennis racket']
+subset_ids = [34, 35, 29, 33, 36, 30, 31, 32, 37, 38]
 
 def get_subset_ids():
     ids = []
@@ -28,7 +28,7 @@ def get_subset_ids():
     return ids
 
 LABEL_SUBSET = {id: name for id, name in zip(subset_ids, subset_names)}
-ROOT_DIR = "/home/ec2-user/Documents/datasets/coco/"
+ROOT_DIR = "/home/ec2-user/Documents/datasets/coco_sports/"
 
 # Filter out examples that don't have a label in the label subset
 

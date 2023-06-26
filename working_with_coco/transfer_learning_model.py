@@ -100,7 +100,6 @@ model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=hp["learning_rate
 tensorboard_callback = dutils.get_tensorboard_callback(model_name)
 
 model.summary()
-quit()
 
 # Train the model
 history = model.fit(
@@ -141,3 +140,4 @@ history_fine = model.fit(
 # Save the model and log the results
 dutils.save_model(model, model_name + "_fine_tuned")
 model.evaluate(test_ds)
+

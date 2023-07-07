@@ -71,7 +71,7 @@ def display(display_list, to_file = True, root_dir = "plots", file_name = "img_a
     Display a list of images and their masks
 
     Args:
-        display_list (list): A list of images and their masks
+        display_list (list): A list of images and their masks. The image and mask should be numpy arrays.
         to_file (bool): Whether to save the image to a file or not
         root_dir (str): The root directory to save the image to
         file_name (str): The name of the file to save the image to

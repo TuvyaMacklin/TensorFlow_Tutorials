@@ -26,7 +26,7 @@ def load_image(datapoint):
     return input_image, input_mask
 
 # Display an example with its mask
-def display(display_list, to_file = True, root_dir = "plots", file_name = "img_and_mask", count = None):
+def display(display_list, to_file = True, root_dir = "plots", file_name = "img_and_mask", count = None, skip_true_mask = False):
     '''
     Display a list of images and their masks
 
@@ -36,6 +36,7 @@ def display(display_list, to_file = True, root_dir = "plots", file_name = "img_a
         root_dir (str): The root directory to save the image to
         file_name (str): The name of the file to save the image to
         count (int): The number of the image to save
+        skip_true_mask (bool): Whether to skip the true mask or not
     
     Returns:
         None
@@ -44,9 +45,12 @@ def display(display_list, to_file = True, root_dir = "plots", file_name = "img_a
         Saves the image to a file
     '''
 
-    plt.figure(figsize=(15, 15))
+    plt.figure(figsize=(30, 15))
 
     title = ["Input Image", "True Mask", "Predicted Mask"]
+
+    if skip_true_mask:
+        title = ["Input Image", "Predicted Mask"]
 
     for i in range(len(display_list)):
         plt.subplot(1, len(display_list), i + 1)
@@ -65,21 +69,31 @@ def display(display_list, to_file = True, root_dir = "plots", file_name = "img_a
         plt.show()
 
 # Evaluate the model
-dataset, info = tfds.load("oxford_iiit_pet:3.*.*", with_info = True)
-test_ds = dataset["test"].map(load_image, num_parallel_calls = tf.data.AUTOTUNE)
-
-one_example = test_ds.take(1)
-
-for i, (image, mask) in enumerate(one_example):
-    sample_image, sample_mask = image, mask
-    display([sample_image, sample_mask], count = i)
 
 def create_mask(pred_mask):
     pred_mask = tf.argmax(pred_mask, axis = -1)
     pred_mask = pred_mask[..., tf.newaxis]
     return pred_mask[0]
 
-def show_predictions(dataset = test_ds, num = 1):
+def show_predictions(dataset, num = 1):
     for index, (image, mask) in enumerate(dataset.take(num)):
         pred_mask = model.predict(image[tf.newaxis, ...])
         display([image, mask, create_mask(pred_mask)], count=index)
+
+def make_single_prediction(image, original_shape = None, original_image = None):
+    image = tf.image.resize(image, (128, 128))
+    pred_mask = model.predict(image[tf.newaxis, ...])
+
+    if not original_shape is None:
+        pred_mask = tf.image.resize(pred_mask, original_shape[:-1])
+        image = tf.image.resize(image, original_shape[:-1])
+    
+    if not original_image is None:
+        image = original_image
+
+    display([image, create_mask(pred_mask)], skip_true_mask=True)
+
+def load_image_as_tensor(image_path):
+    image = tf.keras.preprocessing.image.load_img(image_path)
+    image = tf.keras.preprocessing.image.img_to_array(image)
+    return image

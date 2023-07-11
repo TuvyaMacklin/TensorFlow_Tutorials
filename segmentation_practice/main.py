@@ -188,7 +188,7 @@ def show_predictions(dataset = None, num = 1):
 show_predictions()
 
 # Train the model
-EPOCHS = 10
+EPOCHS = 20
 VAL_SUBSPLITS = 5
 VALIDATION_STEPS = info.splits['test'].num_examples//BATCH_SIZE//VAL_SUBSPLITS
 

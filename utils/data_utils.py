@@ -1,3 +1,33 @@
+'''
+This file contains functions for saving and loading models, logging results, and ensuring that directories exist.
+
+Author: Tuvya Macklin
+
+Date: 06-26-2023
+
+Functions:
+    `save_model(model, model_name)` - Saves a model to the given directory.
+    `load_model(model_name)` - Loads a model from the given directory.
+    `log_results(history, hps, model_name)` - Logs the results of a model to a csv file with the hyperparameters.
+    `ensure_directory_exists(path)` - Ensures that a directory exists at the given path. If it doesn't exist, it creates it.
+    `get_tensorboard_callback(model_name)` - Returns a TensorBoard callback for a model with the given name.
+
+Constants:
+    `root_model_dir` - The root directory for the models.
+    `root_tensorboard_dir` - The root directory for the TensorBoard callbacks.
+
+Notes:
+    The default values for `root_model_dir` and `root_tensorboard_dir` are:
+    ```
+    root_model_dir = "/home/ec2-user/Documents/Repos/TensorFlow_Tutorials/models"
+    root_tensorboard_dir = ".tensorboard"
+    ```
+
+    To change the default values, change the values of `root_model_dir` and `root_tensorboard_dir` in this file.
+
+    To change the values for a specific model, pass the new values to the functions as keyword arguments.
+'''
+
 import os, datetime
 
 import tensorflow as tf

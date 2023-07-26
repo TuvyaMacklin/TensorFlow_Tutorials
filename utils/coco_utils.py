@@ -1,3 +1,22 @@
+'''
+This module contains functions for processing the COCO dataset. The functions in this module are meant to be used to create a subset of the COCO dataset that only includes images that are labeled with one of the labels in the label subset. The images are cropped to only include the object they are labeled with.
+
+Author: Tuvya Macklin
+
+Date: 06-26-2023
+
+Functions:
+    `process_data_from_class_subset(label_subset, dataset_title)` - Processes the COCO dataset to only include images that are labeled with one of the labels in the label subset. The images are cropped to only include the object they are labeled with.
+
+Constants:
+    `ROOT_DIR` - The root directory for the datasets.
+
+Notes:
+    The default value for `ROOT_DIR` is: "/home/ec2-user/Documents/datasets"
+
+    To change the default value, change the value of `ROOT_DIR` in this file.
+'''
+
 import tensorflow as tf
 
 import tensorflow_datasets as tfds
@@ -37,12 +56,6 @@ def process_data_from_class_subset(label_subset, dataset_title):
         vehicle_labels = ["bicycle", "car", "motorcycle", "airplane", "bus", "train", "truck", "boat"]
         process_coco_data.process_data_from_class_subset(vehicles, "vehicles")
         ```
-
-    Jokes from the programmer:
-        - Why did the programmer quit his job?
-            - Because he didn't get arrays
-        - Why did the programmer get stuck in the shower?
-            - Because the instructions on the shampoo bottle said "Lather, Rinse, Repeat"
     '''
 
     ds_train, info = tfds.load("coco", split = "train", shuffle_files = True, with_info= True)

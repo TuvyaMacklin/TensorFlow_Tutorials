@@ -3,10 +3,13 @@ Utility functions to plot the history of a tensorflow model
 
 Author: Tuvya Macklin
 
-Date: 2023-06-13
+Date: 06-13-2023
 
 Functions:
-    plot_accuracy(history) - Creates a plot of the accuracy of a model with respect to the epochs.
+    `plot_accuracy(history)` - Creates a plot of the accuracy of a model with respect to the epochs.
+    `plot_history(history)` - Creates a plot of the history of a model with respect to the epochs.
+    `plot_images(rows, cols, images, label)` - Plots a grid of images.
+    `plot_examples_from_dataset(dataset, num_of_examples)` - Plots examples from a dataset.
 '''
 from math import ceil, sqrt
 import matplotlib.pyplot as plt

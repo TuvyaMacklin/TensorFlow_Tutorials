@@ -1,5 +1,13 @@
 '''
 A collection of functions for setting up tensorflow models.
+
+Author: Tuvya Macklin
+
+Date: 06-26-2023
+
+Functions:
+    `get_split_of_dataset_from_directory(data_dir, split, **kwargs)` - Returns a tf.data.Dataset object from a directory of images.
+    `get_basic_data_augmentation(flip, input_shape, extra_layers)` - Returns a keras.Sequential object containing basic data augmentation layers.
 '''
 
 import os

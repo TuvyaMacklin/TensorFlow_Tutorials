@@ -3,3 +3,4 @@ venv
 __pycache__
 .tensorboard
 *.code-workspace
+.DS_Store

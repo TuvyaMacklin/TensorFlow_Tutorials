@@ -1,4 +1,4 @@
-# # TensorFlow_Tutorials
+# TensorFlow Tutorials
 This is a collection of python scripts that were written while learning to use TensorFlow for computer vision problems.
 
 ## Utils

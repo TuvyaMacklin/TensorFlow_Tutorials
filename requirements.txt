@@ -5,3 +5,4 @@ tensorflow-datasets==4.9.2
 pandas==2.0.2
 tqdm==4.65.0
 tensorflow-examples @ git+https://github.com/tensorflow/examples.git@a55d94841a9cbf7b3b77d35bf81189fc6010dcc5
+anvil-uplink
